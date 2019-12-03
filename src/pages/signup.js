@@ -134,7 +134,7 @@ class signup extends Component {
               variant="contained"
               color="primary"
               className={classes.button}
-              disable={loading}
+              disabled={loading}
             >
               Signup
               {loading && (
