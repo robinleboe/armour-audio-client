@@ -29,11 +29,19 @@ class login extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
+
+  // static getDerivedStateFromProps(props) {
+  //   if (props.UI.errors) {
+  //     return {
+  //       errors: props.UI.errors
+  //     }
+  //   }
+  // }
 
   handleSubmit = event => {
     event.preventDefault();
