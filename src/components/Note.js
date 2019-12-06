@@ -108,8 +108,6 @@ class Note extends Component {
             <ChatIcon color="primary" />
           </AaButton>
           <span>{commentCount} Comments</span>
-          {/* {console.log("authenticated",authenticated)} */}
-          {console.log("user",this.props.note)}
         </CardContent>
       </Card>
     );
