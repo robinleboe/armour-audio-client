@@ -9,6 +9,7 @@ export const LOADING_UI = 'LOADING_UI';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 // data reducer types
 export const SET_NOTES = 'SET_NOTES';
+export const SET_NOTE = 'SET_NOTE';
 export const LOADING_DATA = 'LOADING_DATA';
 export const LIKE_NOTE = 'LIKE_NOTE';
 export const UNLIKE_NOTE = 'UNLIKE_NOTE';
