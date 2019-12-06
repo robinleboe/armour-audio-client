@@ -13,11 +13,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { Typography } from '@material-ui/core';
 // icons
 import ChatIcon from '@material-ui/icons/Chat';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 // redux
 import { connect } from 'react-redux';
 import { likeNote, unlikeNote } from '../redux/actions/dataActions';
-
 
 const styles = {
   card: {
@@ -34,6 +35,23 @@ const styles = {
 };
 
 class Note extends Component {
+  likedNote = () => {
+    if (
+      this.props.user.likes &&
+      this.props.user.likes.find(like => like.noteId === this.props.note.noteId)
+    )
+      return true;
+    else return false;
+  };
+
+  likeNote = () => {
+    this.props.likeNote(this.props.note.noteId);
+  };
+
+  unlikeNote = () => {
+    this.props.unlikeNote(this.props.note.noteId);
+  };
+
   render() {
     dayjs.extend(relativeTime);
     const {
@@ -42,12 +60,28 @@ class Note extends Component {
         body,
         createdAt,
         userImage,
-        userHandle
-        // noteId,
-        // likeCount,
-        // commentCount
-      }
+        userHandle,
+        noteId,
+        likeCount,
+        commentCount
+      },
+      user: { authenticated }
     } = this.props;
+    const likeButton = !authenticated ? (
+      <AaButton tip="like">
+        <Link to="/login">
+          <FavoriteBorderIcon color="primary" />
+        </Link>
+      </AaButton>
+    ) : this.likedNote() ? (
+      <AaButton tip="Undo like" onClick={this.unlikeNote}>
+        <FavoriteIcon color="primary" />
+      </AaButton>
+    ) : (
+      <AaButton tip="Like Note" onClick={this.likeNote}>
+        <FavoriteBorderIcon color="primary" />
+      </AaButton>
+    );
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -71,7 +105,7 @@ class Note extends Component {
           {likeButton}
           <span>{likeCount} Likes</span>
           <AaButton tip="comments">
-            <ChatIcon color="primary"/>
+            <ChatIcon color="primary" />
           </AaButton>
           <span>{commentCount} Comments</span>
         </CardContent>
@@ -86,7 +120,7 @@ Note.propTypes = {
   user: PropTypes.object.isRequired,
   note: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired
-}
+};
 
 const mapStateToProps = state => ({
   user: state.user
@@ -95,6 +129,9 @@ const mapStateToProps = state => ({
 const mapActionsToProps = {
   likeNote,
   unlikeNote
-}
+};
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Note));
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(withStyles(styles)(Note));

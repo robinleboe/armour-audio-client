@@ -23,7 +23,7 @@ export const getNotes = () => dispatch => {
 // like a note
 export const likeNote = noteId => dispatch => {
   axios
-    .get(`/notes/${noteId}/like`)
+    .get(`/note/${noteId}/like`)
     .then(res => {
       dispatch({
         type: LIKE_NOTE,
@@ -36,7 +36,7 @@ export const likeNote = noteId => dispatch => {
 // unlike a note
 export const unlikeNote = noteId => dispatch => {
   axios
-    .get(`/notes/${noteId}/unlike`)
+    .get(`/note/${noteId}/unlike`)
     .then(res => {
       dispatch({
         type: UNLIKE_NOTE,
