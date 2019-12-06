@@ -3,19 +3,18 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
-import EditDetails from './EditDetails'
+import EditDetails from './EditDetails';
+import AaButton from '../util/AaButton';
 // mui
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import MuiLink from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-import Tooltip from '@material-ui/core/Tooltip';
 // icons
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
-import { IconButton } from '@material-ui/core';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 // redux
 import { connect } from 'react-redux';
@@ -41,7 +40,7 @@ class Profile extends Component {
   };
 
   handleLogout = () => {
-      this.props.logoutUser();
+    this.props.logoutUser();
   };
 
   render() {
@@ -66,11 +65,13 @@ class Profile extends Component {
                 hidden="hidden"
                 onChange={this.handleImageChange}
               />
-              <Tooltip title="Edit Profile picture" placement="top">
-                <IconButton onClick={this.handleEditPicture} className="button">
-                  <EditIcon color="primary" />
-                </IconButton>
-              </Tooltip>
+              <AaButton
+                tip="Edit Profile picture"
+                onClick={this.handleEditPicture}
+                btnClassName="button"
+              >
+                <EditIcon color="primary" />
+              </AaButton>
             </div>
             <hr />
             <div className="profile-details">
@@ -104,11 +105,13 @@ class Profile extends Component {
               <CalendarToday color="primary" />{' '}
               <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
             </div>
-            <Tooltip title="Logout" placement="top">
-                <IconButton onClick={this.handleLogout}>
-                    <KeyboardReturn color="primary"/>
-                </IconButton>
-            </Tooltip>
+            <AaButton
+                tip="Logout"
+                onClick={this.handleLogout}
+                btnClassName="button"
+              >
+                <KeyboardReturn color="primary" />
+              </AaButton>
             <EditDetails />
           </div>
         </Paper>
