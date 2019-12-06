@@ -34,7 +34,7 @@ export const likeNote = noteId => dispatch => {
 };
 
 // unlike a note
-export const unLikeNote = noteId => dispatch => {
+export const unlikeNote = noteId => dispatch => {
   axios
     .get(`/notes/${noteId}/unlike`)
     .then(res => {

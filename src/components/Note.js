@@ -3,13 +3,21 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-
-
+import PropTypes from 'prop-types';
+// components
+import AaButton from '../util/AaButton';
 // mui
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import { Typography } from '@material-ui/core';
+// icons
+import ChatIcon from '@material-ui/icons/Chat';
+
+// redux
+import { connect } from 'react-redux';
+import { likeNote, unlikeNote } from '../redux/actions/dataActions';
+
 
 const styles = {
   card: {
@@ -17,12 +25,11 @@ const styles = {
     marginBottom: 20
   },
   image: {
-      minWidth: 200,
-
+    minWidth: 200
   },
   content: {
-      padding: 25,
-      objectFit: 'cover'
+    padding: 25,
+    objectFit: 'cover'
   }
 };
 
@@ -35,7 +42,7 @@ class Note extends Component {
         body,
         createdAt,
         userImage,
-        userHandle,
+        userHandle
         // noteId,
         // likeCount,
         // commentCount
@@ -43,19 +50,51 @@ class Note extends Component {
     } = this.props;
     return (
       <Card className={classes.card}>
-        <CardMedia className={classes.image} image={userImage} title="Profile Image" />
+        <CardMedia
+          className={classes.image}
+          image={userImage}
+          title="Profile Image"
+        />
         <CardContent className={classes.content}>
-          <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">
+          <Typography
+            variant="h5"
+            component={Link}
+            to={`/users/${userHandle}`}
+            color="primary"
+          >
             {userHandle}
           </Typography>
           <Typography variant="body2" color="textSecondary">
             {dayjs(createdAt).fromNow()}
           </Typography>
           <Typography variant="body1">{body}</Typography>
+          {likeButton}
+          <span>{likeCount} Likes</span>
+          <AaButton tip="comments">
+            <ChatIcon color="primary"/>
+          </AaButton>
+          <span>{commentCount} Comments</span>
         </CardContent>
       </Card>
     );
   }
 }
 
-export default withStyles(styles)(Note);
+Note.propTypes = {
+  likeNote: PropTypes.func.isRequired,
+  unlikeNote: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  note: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+const mapActionsToProps = {
+  likeNote,
+  unlikeNote
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Note));
