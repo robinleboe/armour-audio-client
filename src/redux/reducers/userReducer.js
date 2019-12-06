@@ -2,7 +2,9 @@ import {
   SET_USER,
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
-  LOADING_USER
+  LOADING_USER,
+  LIKE_NOTE,
+  UNLIKE_NOTE
 } from '../types';
 
 const initialState = {
@@ -33,6 +35,22 @@ export default function(state = initialState, action) {
         ...state,
         loading: true
       };
+    case LIKE_NOTE:
+      return {
+        ...state,
+        likes: [
+          ...state.likes,
+          {
+            userHandle: state.credentials.handle,
+            noteId: action.payload.noteId
+          }
+        ]
+      };
+      case UNLIKE_NOTE:
+        return {
+          ...state,
+          likes: state.likes.filter(like => like.noteId === action.payload.noteId)
+        }
     default:
       return state;
   }

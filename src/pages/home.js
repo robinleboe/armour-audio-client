@@ -1,28 +1,21 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
-
+import PropTypes from 'prop-types';
+// components
 import Note from '../components/Note';
 import Profile from '../components/Profile';
+// redux
+import { connect } from 'react-redux';
+import { getNotes } from '../redux/actions/dataActions';
 
 class home extends Component {
-  state = {
-    notes: null
-  };
   componentDidMount() {
-    axios
-      .get('/notes')
-      .then(res => {
-        // console.log(res.data);
-        this.setState({
-          notes: res.data
-        });
-      })
-      .catch(err => console.log(err));
+    this.props.getNotes();
   }
   render() {
-    let recentNotesMarkup = this.state.notes ? (
-      this.state.notes.map(note => <Note key={note.noteId} note={note} />)
+    const { notes, loading } = this.props.data;
+    let recentNotesMarkup = !loading ? (
+      notes.map(note => <Note key={note.noteId} note={note} />)
     ) : (
       <p>Loading...</p>
     );
@@ -39,4 +32,13 @@ class home extends Component {
   }
 }
 
-export default home;
+home.propTypes = {
+  getNotes: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  data: state.data
+});
+
+export default connect(mapStateToProps, { getNotes })(home);
