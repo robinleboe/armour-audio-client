@@ -61,7 +61,6 @@ class Note extends Component {
         createdAt,
         userImage,
         userHandle,
-        noteId,
         likeCount,
         commentCount
       },
