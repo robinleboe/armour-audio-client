@@ -6,6 +6,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 // components
 import AaButton from '../util/AaButton';
+import DeleteNote from './DeleteNote';
 // mui
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -56,15 +57,11 @@ class Note extends Component {
     dayjs.extend(relativeTime);
     const {
       classes,
-      note: {
-        body,
-        createdAt,
-        userImage,
-        userHandle,
-        likeCount,
-        commentCount
-      },
-      user: { authenticated }
+      note: { body, createdAt, userImage, userHandle, noteId, likeCount, commentCount },
+      user: {
+        authenticated,
+        credentials: { handle }
+      }
     } = this.props;
     const likeButton = !authenticated ? (
       <AaButton tip="like">
@@ -81,6 +78,12 @@ class Note extends Component {
         <FavoriteBorderIcon color="primary" />
       </AaButton>
     );
+
+    const deleteButton =
+      authenticated && userHandle === handle ? (
+        <DeleteNote noteId={noteId} />
+      ) : null;
+
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -97,6 +100,7 @@ class Note extends Component {
           >
             {userHandle}
           </Typography>
+          {deleteButton}
           <Typography variant="body2" color="textSecondary">
             {dayjs(createdAt).fromNow()}
           </Typography>

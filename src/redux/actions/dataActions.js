@@ -1,4 +1,4 @@
-import { SET_NOTES, LOADING_DATA, LIKE_NOTE, UNLIKE_NOTE } from '../types';
+import { SET_NOTES, LOADING_DATA, LIKE_NOTE, UNLIKE_NOTE, DELETE_NOTE } from '../types';
 import axios from 'axios';
 
 // get all notes
@@ -41,6 +41,19 @@ export const unlikeNote = noteId => dispatch => {
       dispatch({
         type: UNLIKE_NOTE,
         payload: res.data
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+// delete note
+export const deleteNote = noteId => dispatch => {
+  axios
+    .delete(`/note/${noteId}`)
+    .then(() => {
+      dispatch({
+        type: DELETE_NOTE,
+        payload: noteId
       });
     })
     .catch(err => console.log(err));
