@@ -1,4 +1,4 @@
-import { SET_NOTES, LOADING_DATA, LIKE_NOTE, UNLIKE_NOTE } from '../types';
+import { SET_NOTES, LOADING_DATA, LIKE_NOTE, UNLIKE_NOTE, DELETE_NOTE } from '../types';
 
 const initialState = {
   notes: [],
@@ -28,7 +28,14 @@ export default function(state = initialState, action) {
       return {
           ...state
       };
-
+      case DELETE_NOTE:
+          index = state.notes.findIndex(
+            note => note.noteId === action.payload
+          );
+          state.notes.splice(index, 1);
+          return {
+            ...state
+          };
     default:
       return state;
   }
