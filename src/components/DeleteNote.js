@@ -15,7 +15,12 @@ import { connect } from 'react-redux';
 import { deleteNote } from '../redux/actions/dataActions';
 
 const styles = theme => ({
-  ...theme.spread
+  ...theme.spread,
+  deleteButton: {
+    position: 'absolute',
+    left: '90%',
+    top: '10%'
+  }
 });
 
 class DeleteNote extends Component {

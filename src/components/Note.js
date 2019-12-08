@@ -24,7 +24,8 @@ import { likeNote, unlikeNote } from '../redux/actions/dataActions';
 const styles = {
   card: {
     display: 'flex',
-    marginBottom: 20
+    marginBottom: 20,
+    position: 'relative'
   },
   image: {
     minWidth: 200

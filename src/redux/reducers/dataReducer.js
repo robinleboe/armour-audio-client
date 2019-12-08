@@ -36,8 +36,8 @@ export default function(state = initialState, action) {
         ...state
       };
     case DELETE_NOTE:
-      index = state.notes.findIndex(note => note.noteId === action.payload);
-      state.notes.splice(index, 1);
+      let indext = state.notes.findIndex(note => note.noteId === action.payload);
+      state.notes.splice(indext, 1);
       return {
         ...state
       };

@@ -90,3 +90,8 @@ export const deleteNote = noteId => dispatch => {
     })
     .catch(err => console.log(err));
 };
+
+export const clearErrors = () => dispatch =>  {
+  dispatch({ type: CLEAR_ERRORS })
+}
+

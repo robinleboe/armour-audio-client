@@ -16,7 +16,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 // redux
 import { connect } from 'react-redux';
-import { postNote } from '../redux/actions/dataActions';
+import { postNote, clearErrors } from '../redux/actions/dataActions';
 
 const styles = theme => ({
   ...theme.spread,
@@ -49,14 +49,14 @@ class PostNote extends Component {
       });
     }
     if (!nextProps.UI.errors && !nextProps.UI.loading) {
-      this.setState({ body: '' });
-      this.handleClose();
+      this.setState({ body: '', open: false, errors: {} });
     }
   }
   handleOpen = () => {
     this.setState({ open: true });
   };
   handleClose = () => {
+    this.props.clearErrors();
     this.setState({ open: false, errors: {} });
   };
   handleChange = event => {
@@ -132,6 +132,7 @@ class PostNote extends Component {
 
 PostNote.propTypes = {
   postNote: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired
 };
 
@@ -139,6 +140,6 @@ const mapStateToProps = state => ({
   UI: state.UI
 });
 
-export default connect(mapStateToProps, { postNote })(
+export default connect(mapStateToProps, { postNote, clearErrors })(
   withStyles(styles)(PostNote)
 );
