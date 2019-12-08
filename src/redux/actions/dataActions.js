@@ -1,4 +1,14 @@
-import { SET_NOTES, LOADING_DATA, LIKE_NOTE, UNLIKE_NOTE, DELETE_NOTE } from '../types';
+import {
+  SET_NOTES,
+  LOADING_DATA,
+  LIKE_NOTE,
+  UNLIKE_NOTE,
+  DELETE_NOTE,
+  SET_ERRORS,
+  POST_NOTE,
+  CLEAR_ERRORS,
+  LOADING_UI
+} from '../types';
 import axios from 'axios';
 
 // get all notes
@@ -16,6 +26,28 @@ export const getNotes = () => dispatch => {
       dispatch({
         type: SET_NOTES,
         payload: []
+      });
+    });
+};
+
+// post a Note
+export const postNote = newNote => dispatch => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post('/note', newNote)
+    .then(res => {
+      dispatch({
+        type: POST_NOTE,
+        payload: res.data
+      });
+      dispatch({
+        type: CLEAR_ERRORS
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
       });
     });
 };
