@@ -27,7 +27,7 @@ export default function(state = initialState, action) {
         loading: false
       };
     case LIKE_NOTE:
-    case UNLIKE_NOTE:
+    case UNLIKE_NOTE: {
       let index = state.notes.findIndex(
         note => note.noteId === action.payload.noteId
       );
@@ -35,12 +35,16 @@ export default function(state = initialState, action) {
       return {
         ...state
       };
-    case DELETE_NOTE:
-      let indext = state.notes.findIndex(note => note.noteId === action.payload);
-      state.notes.splice(indext, 1);
+    }
+    case DELETE_NOTE: {
+      let index = state.notes.findIndex(
+        note => note.noteId === action.payload
+      );
+      state.notes.splice(index, 1);
       return {
         ...state
       };
+    }
     case POST_NOTE:
       return {
         ...state,
