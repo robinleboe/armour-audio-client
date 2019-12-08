@@ -7,7 +7,9 @@ import {
   SET_ERRORS,
   POST_NOTE,
   CLEAR_ERRORS,
-  LOADING_UI
+  LOADING_UI,
+  SET_NOTE,
+  STOP_LOADING_UI
 } from '../types';
 import axios from 'axios';
 
@@ -28,6 +30,19 @@ export const getNotes = () => dispatch => {
         payload: []
       });
     });
+};
+
+export const getNote = noteId => dispatch => {
+  dispatch({ type: LOADING_UI });
+  axios.get(`/note/${noteId}`)
+  .then(res => {
+    dispatch({
+      type: SET_NOTE,
+      payload: res.data
+    });
+    dispatch({ type: STOP_LOADING_UI });
+  })
+  .catch(err => console.log(err));
 };
 
 // post a Note
@@ -91,7 +106,6 @@ export const deleteNote = noteId => dispatch => {
     .catch(err => console.log(err));
 };
 
-export const clearErrors = () => dispatch =>  {
-  dispatch({ type: CLEAR_ERRORS })
-}
-
+export const clearErrors = () => dispatch => {
+  dispatch({ type: CLEAR_ERRORS });
+};

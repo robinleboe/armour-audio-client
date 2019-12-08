@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 // components
 import AaButton from '../util/AaButton';
 import DeleteNote from './DeleteNote';
+import NoteDialog from './NoteDialog';
 // mui
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -112,6 +113,7 @@ class Note extends Component {
             <ChatIcon color="primary" />
           </AaButton>
           <span>{commentCount} Comments</span>
+          <NoteDialog noteId={noteId} userHandle={userHandle}/>
         </CardContent>
       </Card>
     );
