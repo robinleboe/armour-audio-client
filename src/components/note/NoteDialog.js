@@ -20,7 +20,7 @@ import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
 import ChatIcon from '@material-ui/icons/Chat';
 // redux
 import { connect } from 'react-redux';
-import { getNote } from '../../redux/actions/dataActions';
+import { getNote, clearErrors } from '../../redux/actions/dataActions';
 
 const styles = theme => ({
   ...theme.spread,
@@ -57,6 +57,7 @@ class NoteDialog extends Component {
   };
   handleClose = () => {
     this.setState({ open: false });
+    this.props.clearErrors();
   };
 
   render() {
@@ -142,6 +143,7 @@ class NoteDialog extends Component {
 }
 
 NoteDialog.propTypes = {
+  clearErrors: PropTypes.func.isRequired,
   getNote: PropTypes.func.isRequired,
   noteId: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
@@ -155,7 +157,8 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-  getNote
+  getNote,
+  clearErrors
 };
 
 export default connect(
