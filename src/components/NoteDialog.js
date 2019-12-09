@@ -7,16 +7,17 @@ import { Link } from 'react-router-dom';
 //mui
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 // icons
 import CloseIcon from '@material-ui/icons/Close';
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
+import ChatIcon from '@material-ui/icons/Chat';
 // redux
 import { connect } from 'react-redux';
 import { getNote } from '../redux/actions/dataActions';
+import LikeButton from './LikeButton';
 
 const styles = theme => ({
   ...theme.spread,
@@ -96,6 +97,12 @@ class NoteDialog extends Component {
           </Typography>
           <hr className={classes.invisibleSeparator} />
           <Typography variant="body1">{body}</Typography>
+          <LikeButton noteId={noteId} />
+          <span>{likeCount} Likes</span>
+          <AaButton tip="comments">
+            <ChatIcon color="primary" />
+          </AaButton>
+          <span>{commentCount} Comments</span>
         </Grid>
       </Grid>
     );
@@ -112,7 +119,9 @@ class NoteDialog extends Component {
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
-          fullWidth maxWidth="sm" >
+          fullWidth
+          maxWidth="sm"
+        >
           <AaButton
             tip="Close"
             onClick={this.handleClose}

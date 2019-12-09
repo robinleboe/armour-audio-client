@@ -38,6 +38,9 @@ export default function(state = initialState, action) {
         note => note.noteId === action.payload.noteId
       );
       state.notes[index] = action.payload;
+      if(state.note.noteId === action.payload.noteId) {
+        state.note = action.payload;
+      }
       return {
         ...state
       };

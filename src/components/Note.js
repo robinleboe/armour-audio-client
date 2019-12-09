@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import AaButton from '../util/AaButton';
 import DeleteNote from './DeleteNote';
 import NoteDialog from './NoteDialog';
+import LikeButton from './LikeButton';
 // mui
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -15,12 +16,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { Typography } from '@material-ui/core';
 // icons
 import ChatIcon from '@material-ui/icons/Chat';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-
 // redux
 import { connect } from 'react-redux';
-import { likeNote, unlikeNote } from '../redux/actions/dataActions';
 
 const styles = {
   card: {
@@ -38,48 +35,24 @@ const styles = {
 };
 
 class Note extends Component {
-  likedNote = () => {
-    if (
-      this.props.user.likes &&
-      this.props.user.likes.find(like => like.noteId === this.props.note.noteId)
-    )
-      return true;
-    else return false;
-  };
-
-  likeNote = () => {
-    this.props.likeNote(this.props.note.noteId);
-  };
-
-  unlikeNote = () => {
-    this.props.unlikeNote(this.props.note.noteId);
-  };
-
   render() {
     dayjs.extend(relativeTime);
     const {
       classes,
-      note: { body, createdAt, userImage, userHandle, noteId, likeCount, commentCount },
+      note: {
+        body,
+        createdAt,
+        userImage,
+        userHandle,
+        noteId,
+        likeCount,
+        commentCount
+      },
       user: {
         authenticated,
         credentials: { handle }
       }
     } = this.props;
-    const likeButton = !authenticated ? (
-      <AaButton tip="like">
-        <Link to="/login">
-          <FavoriteBorderIcon color="primary" />
-        </Link>
-      </AaButton>
-    ) : this.likedNote() ? (
-      <AaButton tip="Undo like" onClick={this.unlikeNote}>
-        <FavoriteIcon color="primary" />
-      </AaButton>
-    ) : (
-      <AaButton tip="Like Note" onClick={this.likeNote}>
-        <FavoriteBorderIcon color="primary" />
-      </AaButton>
-    );
 
     const deleteButton =
       authenticated && userHandle === handle ? (
@@ -107,13 +80,13 @@ class Note extends Component {
             {dayjs(createdAt).fromNow()}
           </Typography>
           <Typography variant="body1">{body}</Typography>
-          {likeButton}
+          <LikeButton noteId={noteId}/>
           <span>{likeCount} Likes</span>
           <AaButton tip="comments">
             <ChatIcon color="primary" />
           </AaButton>
           <span>{commentCount} Comments</span>
-          <NoteDialog noteId={noteId} userHandle={userHandle}/>
+          <NoteDialog noteId={noteId} userHandle={userHandle} />
         </CardContent>
       </Card>
     );
@@ -121,8 +94,6 @@ class Note extends Component {
 }
 
 Note.propTypes = {
-  likeNote: PropTypes.func.isRequired,
-  unlikeNote: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   note: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired
@@ -132,12 +103,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-const mapActionsToProps = {
-  likeNote,
-  unlikeNote
-};
-
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(Note));
+export default connect(mapStateToProps)(withStyles(styles)(Note));
