@@ -73,4 +73,8 @@ Comments.propTypes = {
   comments: PropTypes.array.isRequired
 };
 
+Comments.defaultProps = {
+  comments: []
+};
+
 export default withStyles(styles)(Comments);
