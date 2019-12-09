@@ -4,6 +4,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import AaButton from '../../util/AaButton';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+// components
+import LikeButton from './LikeButton';
+import Comments from './Comments';
 //mui
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -17,14 +20,9 @@ import ChatIcon from '@material-ui/icons/Chat';
 // redux
 import { connect } from 'react-redux';
 import { getNote } from '../../redux/actions/dataActions';
-import LikeButton from './LikeButton';
 
 const styles = theme => ({
   ...theme.spread,
-  invisivbleSeperator: {
-    border: 'none',
-    margin: 4
-  },
   profileImage: {
     maxWidth: 200,
     height: 200,
@@ -70,7 +68,8 @@ class NoteDialog extends Component {
         likeCount,
         commentCount,
         userImage,
-        userHandle
+        userHandle,
+        comments
       },
       UI: { loading }
     } = this.props;
@@ -78,7 +77,7 @@ class NoteDialog extends Component {
     const dialogMarkup = loading ? (
       <CircularProgress size={200} />
     ) : (
-      <Grid container spacing={16}>
+      <Grid container spacing={2}>
         <Grid item sm={5}>
           <img src={userImage} alt="Profile" className={classes.profileImage} />
         </Grid>
@@ -104,6 +103,8 @@ class NoteDialog extends Component {
           </AaButton>
           <span>{commentCount} Comments</span>
         </Grid>
+        <hr className={classes.visibleSeparator} />
+        <Comments comments={comments} />
       </Grid>
     );
 
