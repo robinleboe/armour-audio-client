@@ -125,6 +125,25 @@ export const deleteNote = noteId => dispatch => {
     .catch(err => console.log(err));
 };
 
+// get user data for user page
+export const getUserData = userHandle => dispatch => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .get(`/user/${userHandle}`)
+    .then(res => {
+      dispatch({
+        type: SET_NOTES,
+        payload: res.data.notes
+      });
+    })
+    .catch(() => {
+      dispatch({
+        type: SET_NOTES,
+        payload: null
+      });
+    });
+};
+
 export const clearErrors = () => dispatch => {
   dispatch({ type: CLEAR_ERRORS });
 };
