@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // components
-import AaButton from '../util/AaButton';
+import AaButton from '../../util/AaButton';
 // redux
 import { connect } from 'react-redux';
-import { likeNote, unlikeNote } from '../redux/actions/dataActions';
+import { likeNote, unlikeNote } from '../../redux/actions/dataActions';
 // icons
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';

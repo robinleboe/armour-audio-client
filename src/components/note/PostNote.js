@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import AaButton from '../util/AaButton';
+import AaButton from '../../util/AaButton';
 // mui
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -16,7 +16,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 // redux
 import { connect } from 'react-redux';
-import { postNote, clearErrors } from '../redux/actions/dataActions';
+import { postNote, clearErrors } from '../../redux/actions/dataActions';
 
 const styles = theme => ({
   ...theme.spread,

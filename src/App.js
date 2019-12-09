@@ -21,7 +21,7 @@ import login from './pages/login';
 import signup from './pages/signup';
 
 // components
-import Navbar from './components/Navbar';
+import Navbar from './components/layout/Navbar';
 import AuthRoute from './util/AuthRoute';
 
 // theme

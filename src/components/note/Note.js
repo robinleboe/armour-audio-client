@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 // components
-import AaButton from '../util/AaButton';
+import AaButton from '../../util/AaButton';
 import DeleteNote from './DeleteNote';
 import NoteDialog from './NoteDialog';
 import LikeButton from './LikeButton';

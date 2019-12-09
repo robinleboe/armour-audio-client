@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import AaButton from '../util/AaButton';
+import AaButton from '../../util/AaButton';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 //mui
@@ -16,7 +16,7 @@ import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
 import ChatIcon from '@material-ui/icons/Chat';
 // redux
 import { connect } from 'react-redux';
-import { getNote } from '../redux/actions/dataActions';
+import { getNote } from '../../redux/actions/dataActions';
 import LikeButton from './LikeButton';
 
 const styles = theme => ({
