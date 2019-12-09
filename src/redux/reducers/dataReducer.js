@@ -5,7 +5,8 @@ import {
   UNLIKE_NOTE,
   DELETE_NOTE,
   POST_NOTE,
-  SET_NOTE
+  SET_NOTE,
+  SUBMIT_COMMENT
 } from '../types';
 
 const initialState = {
@@ -59,6 +60,14 @@ export default function(state = initialState, action) {
         ...state,
         notes: [action.payload, ...state.notes]
       };
+      case SUBMIT_COMMENT:
+        return {
+          ...state,
+          note: {
+            ...state.note,
+            comments: [action.payload, ...state.note.comments]
+          }
+        }
     default:
       return state;
   }

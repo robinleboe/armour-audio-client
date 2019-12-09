@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 // components
 import LikeButton from './LikeButton';
 import Comments from './Comments';
+import CommentForm from './CommentForm';
 //mui
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -104,6 +105,7 @@ class NoteDialog extends Component {
           <span>{commentCount} Comments</span>
         </Grid>
         <hr className={classes.visibleSeparator} />
+        <CommentForm noteId={noteId}/>
         <Comments comments={comments} />
       </Grid>
     );
