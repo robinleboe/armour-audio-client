@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AaButton from '../util/AaButton';
-import PostNote from './PostNote';
+import AaButton from '../../util/AaButton';
+import PostNote from '../note/PostNote';
 // mui
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';

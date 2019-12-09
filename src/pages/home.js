@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 // components
-import Note from '../components/Note';
-import Profile from '../components/Profile';
+import Note from '../components/note/Note';
+import Profile from '../components/profile/Profile';
 // redux
 import { connect } from 'react-redux';
 import { getNotes } from '../redux/actions/dataActions';

@@ -9,7 +9,8 @@ import {
   CLEAR_ERRORS,
   LOADING_UI,
   SET_NOTE,
-  STOP_LOADING_UI
+  STOP_LOADING_UI,
+  SUBMIT_COMMENT
 } from '../types';
 import axios from 'axios';
 
@@ -34,15 +35,16 @@ export const getNotes = () => dispatch => {
 
 export const getNote = noteId => dispatch => {
   dispatch({ type: LOADING_UI });
-  axios.get(`/note/${noteId}`)
-  .then(res => {
-    dispatch({
-      type: SET_NOTE,
-      payload: res.data
-    });
-    dispatch({ type: STOP_LOADING_UI });
-  })
-  .catch(err => console.log(err));
+  axios
+    .get(`/note/${noteId}`)
+    .then(res => {
+      dispatch({
+        type: SET_NOTE,
+        payload: res.data
+      });
+      dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch(err => console.log(err));
 };
 
 // post a Note
@@ -55,9 +57,7 @@ export const postNote = newNote => dispatch => {
         type: POST_NOTE,
         payload: res.data
       });
-      dispatch({
-        type: CLEAR_ERRORS
-      });
+      dispatch(clearErrors());
     })
     .catch(err => {
       dispatch({
@@ -91,6 +91,25 @@ export const unlikeNote = noteId => dispatch => {
       });
     })
     .catch(err => console.log(err));
+};
+
+// submit comment
+export const submitComment = (noteId, commentData) => dispatch => {
+  axios
+    .post(`/note/${noteId}/comment`, commentData)
+    .then(res => {
+      dispatch({
+        type: SUBMIT_COMMENT,
+        payload: res.data
+      });
+      dispatch(clearErrors());
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      });
+    });
 };
 
 // delete note

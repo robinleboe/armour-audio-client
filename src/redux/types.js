@@ -16,3 +16,4 @@ export const LIKE_NOTE = 'LIKE_NOTE';
 export const UNLIKE_NOTE = 'UNLIKE_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const POST_NOTE = 'POST_NOTE';
+export const SUBMIT_COMMENT = 'SUBMIT_COMMENT';

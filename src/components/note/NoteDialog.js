@@ -1,29 +1,29 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import AaButton from '../util/AaButton';
+import AaButton from '../../util/AaButton';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+// components
+import LikeButton from './LikeButton';
+import Comments from './Comments';
+import CommentForm from './CommentForm';
 //mui
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 // icons
 import CloseIcon from '@material-ui/icons/Close';
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
+import ChatIcon from '@material-ui/icons/Chat';
 // redux
 import { connect } from 'react-redux';
-import { getNote } from '../redux/actions/dataActions';
+import { getNote, clearErrors } from '../../redux/actions/dataActions';
 
 const styles = theme => ({
   ...theme.spread,
-  invisivbleSeperator: {
-    border: 'none',
-    margin: 4
-  },
   profileImage: {
     maxWidth: 200,
     height: 200,
@@ -57,6 +57,7 @@ class NoteDialog extends Component {
   };
   handleClose = () => {
     this.setState({ open: false });
+    this.props.clearErrors();
   };
 
   render() {
@@ -69,7 +70,8 @@ class NoteDialog extends Component {
         likeCount,
         commentCount,
         userImage,
-        userHandle
+        userHandle,
+        comments
       },
       UI: { loading }
     } = this.props;
@@ -77,7 +79,7 @@ class NoteDialog extends Component {
     const dialogMarkup = loading ? (
       <CircularProgress size={200} />
     ) : (
-      <Grid container spacing={16}>
+      <Grid container spacing={2}>
         <Grid item sm={5}>
           <img src={userImage} alt="Profile" className={classes.profileImage} />
         </Grid>
@@ -96,7 +98,16 @@ class NoteDialog extends Component {
           </Typography>
           <hr className={classes.invisibleSeparator} />
           <Typography variant="body1">{body}</Typography>
+          <LikeButton noteId={noteId} />
+          <span>{likeCount} Likes</span>
+          <AaButton tip="comments">
+            <ChatIcon color="primary" />
+          </AaButton>
+          <span>{commentCount} Comments</span>
         </Grid>
+        <hr className={classes.visibleSeparator} />
+        <CommentForm noteId={noteId}/>
+        <Comments comments={comments} />
       </Grid>
     );
 
@@ -112,7 +123,9 @@ class NoteDialog extends Component {
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
-          fullWidth maxWidth="sm" >
+          fullWidth
+          maxWidth="sm"
+        >
           <AaButton
             tip="Close"
             onClick={this.handleClose}
@@ -130,6 +143,7 @@ class NoteDialog extends Component {
 }
 
 NoteDialog.propTypes = {
+  clearErrors: PropTypes.func.isRequired,
   getNote: PropTypes.func.isRequired,
   noteId: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
@@ -143,7 +157,8 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
-  getNote
+  getNote,
+  clearErrors
 };
 
 export default connect(
