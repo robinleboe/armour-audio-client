@@ -86,7 +86,7 @@ class Note extends Component {
             <ChatIcon color="primary" />
           </AaButton>
           <span>{commentCount} Comments</span>
-          <NoteDialog noteId={noteId} userHandle={userHandle} />
+          <NoteDialog noteId={noteId} userHandle={userHandle} openDialog={this.props.openDialog} />
         </CardContent>
       </Card>
     );
@@ -96,7 +96,8 @@ class Note extends Component {
 Note.propTypes = {
   user: PropTypes.object.isRequired,
   note: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  openDialog: PropTypes.bool
 };
 
 const mapStateToProps = state => ({

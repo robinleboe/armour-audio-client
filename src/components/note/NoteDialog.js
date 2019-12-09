@@ -51,6 +51,11 @@ class NoteDialog extends Component {
   state = {
     open: false
   };
+  componentDidMount() {
+    if (this.props.openDialog) {
+      this.handleOpen();
+    }
+  }
   handleOpen = () => {
     this.setState({ open: true });
     this.props.getNote(this.props.noteId);
@@ -106,7 +111,7 @@ class NoteDialog extends Component {
           <span>{commentCount} Comments</span>
         </Grid>
         <hr className={classes.visibleSeparator} />
-        <CommentForm noteId={noteId}/>
+        <CommentForm noteId={noteId} />
         <Comments comments={comments} />
       </Grid>
     );
