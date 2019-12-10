@@ -43,9 +43,6 @@ class user extends Component {
       notes.map(note => <Note key={note.noteId} note={note} />)
     ) : (
       notes.map(note => {
-        console.log(note.noteId)
-        console.log(noteIdParam)
-
         if (note.noteId !== noteIdParam)
           return <Note key={note.noteId} note={note} />;
         else return <Note key={note.noteId} note={note} openDialog />;
