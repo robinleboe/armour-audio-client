@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // components
 import Note from '../components/note/Note';
 import Profile from '../components/profile/Profile';
+import NoteSkeleton from '../util/NoteSkeleton';
 // redux
 import { connect } from 'react-redux';
 import { getNotes } from '../redux/actions/dataActions';
@@ -17,7 +18,7 @@ class home extends Component {
     let recentNotesMarkup = !loading ? (
       notes.map(note => <Note key={note.noteId} note={note} />)
     ) : (
-      <p>Loading...</p>
+      <NoteSkeleton/>
     );
     return (
       <Grid container spacing={2}>
