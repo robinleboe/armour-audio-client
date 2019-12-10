@@ -4,6 +4,8 @@ import axios from 'axios';
 // components
 import Note from '../components/note/Note';
 import StaticProfile from '../components/profile/StaticProfile';
+import NoteSkeleton from '../util/NoteSkeleton';
+import ProfileSkeleton from '../util/ProfileSkeleton';
 // mui
 import Grid from '@material-ui/core/Grid';
 // redux
@@ -36,7 +38,7 @@ class user extends Component {
     const { noteIdParam } = this.state;
 
     const notesMarkup = loading ? (
-      <p>loading data...</p>
+      <NoteSkeleton/>
     ) : notes === null ? (
       <p>No notes for this user</p>
     ) : !noteIdParam ? (
@@ -56,7 +58,7 @@ class user extends Component {
         </Grid>
         <Grid item sm={4} xs={12}>
           {this.state.profile === null ? (
-            <p>loading profile...</p>
+            <ProfileSkeleton/>
           ) : (
             <StaticProfile profile={this.state.profile} />
           )}
