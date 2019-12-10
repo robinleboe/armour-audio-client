@@ -49,7 +49,9 @@ const styles = theme => ({
 });
 class NoteDialog extends Component {
   state = {
-    open: false
+    open: false,
+    oldPath: '',
+    newPath: ''
   };
   componentDidMount() {
     if (this.props.openDialog) {
@@ -57,10 +59,20 @@ class NoteDialog extends Component {
     }
   }
   handleOpen = () => {
-    this.setState({ open: true });
+    let oldPath = window.location.pathname;
+
+    const { userHandle, noteId } = this.props;
+    const newPath = `/users/${userHandle}/note/${noteId}`;
+
+    if(oldPath === newPath) oldPath = `/users/${userHandle}`;
+
+    window.history.pushState(null, null, newPath);
+
+    this.setState({ open: true, oldPath, newPath });
     this.props.getNote(this.props.noteId);
   };
   handleClose = () => {
+    window.history.pushState(null, null, this.state.oldPath);
     this.setState({ open: false });
     this.props.clearErrors();
   };
